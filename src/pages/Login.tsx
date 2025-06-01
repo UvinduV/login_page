@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 export function Login(){
     const [isLogin, setIsLogin] = useState(true);
@@ -27,11 +28,25 @@ export function Login(){
         try {
             if (isLogin) {
                 // Login
+                const response = await axios.post('https://dummyjson.com/auth/login', {
+                    username: formData.email,
+                    password: formData.password,
+                    expiresInMins: 30
+                });
 
+                localStorage.setItem('token', response.data.token);
                 navigate('/home');
             } else {
                 // Signup
+                console.log('Signup data:', formData);
+                // For demo purposes, log in after "signup"
+                const response = await axios.post('https://dummyjson.com/auth/login', {
+                    username: "emilys",
+                    password: "emilyspass",
+                    expiresInMins: 30
+                });
 
+                localStorage.setItem('token', response.data.token);
                 navigate('/home');
             }
         } catch (err) {
