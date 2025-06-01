@@ -155,7 +155,6 @@ export function Login(){
                                     required
                                     className="w-full pl-10 pr-3 py-3 border-2 border-blue-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
                                 />
-                                {/*<LockClosedIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>*/}
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
