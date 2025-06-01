@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import bgImage from '../assets/bg1.jpg';
 import {
     UserIcon,
     EnvelopeIcon,
@@ -192,7 +193,7 @@ export function Login(){
                 <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
-                        backgroundImage: "url('')",
+                        backgroundImage: `url(${bgImage})`,
                         borderTopLeftRadius: "80% 100px",
                         borderBottomLeftRadius: "80% 100px",
                     }}
