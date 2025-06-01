@@ -1,6 +1,14 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {
+    UserIcon,
+    EnvelopeIcon,
+    EyeIcon,
+    EyeSlashIcon,
+} from '@heroicons/react/24/outline';
+
+
 
 export function Login(){
     const [isLogin, setIsLogin] = useState(true);
@@ -11,6 +19,7 @@ export function Login(){
         password: ''
     });
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,106 +65,143 @@ export function Login(){
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
-                <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                        Anywhere app
-                    </h2>
-                    <h3 className="mt-2 text-center text-xl text-gray-600">
-                        {isLogin ? 'Log In' : 'Create new account'}
-                    </h3>
-                </div>
 
-                {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                         role="alert">
-                        <span className="block sm:inline">{error}</span>
-                    </div>
-                )}
+        <div className="min-h-screen flex flex-col lg:flex-row">
+            {/* Left Form Section */}
+            <div className="w-full lg:w-1/2 flex flex-col">
+                {/* Header Navigation */}
+                <header className="flex items-center justify-between px-6 py-4 bg-white">
+                    <div className="text-lg font-bold text-gray-800">Anywhere app.</div>
+                    <nav className="space-x-6 text-sm text-gray-600 hidden sm:block">
+                        <a href="#" className="hover:text-blue-500">Home</a>
+                        <a href="#" className="hover:text-blue-500">Join</a>
+                    </nav>
+                </header>
 
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                    {!isLogin && (
-                        <>
-                            <div className="rounded-md shadow-sm -space-y-px">
-                                <div>
-                                    <label htmlFor="firstName" className="sr-only">First name</label>
-                                    <input
-                                        id="firstName"
-                                        name="firstName"
-                                        type="text"
-                                        required
-                                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                        placeholder="First name"
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="lastName" className="sr-only">Last name</label>
-                                    <input
-                                        id="lastName"
-                                        name="lastName"
-                                        type="text"
-                                        required
-                                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                        placeholder="Last name"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                    />
-                                </div>
+                <main className="flex-grow flex items-center justify-center px-6">
+                    <div className="w-full max-w-md">
+                        <div className="mb-6">
+                            <p className="text-sm text-gray-400 font-medium">START FOR FREE</p>
+                            <h2 className="text-4xl font-bold text-gray-900 mt-2">
+                                {isLogin? "Login Here" : "Create new account"}
+                                <span className="text-blue-500">.</span>
+                            </h2>
+                            <p className="text-sm text-gray-500 mt-2">
+                                {!isLogin? "Already A Member? ": "If you not have an account, "}
+                                <button onClick={() => setIsLogin(!isLogin)} className="text-blue-500 hover:underline">
+                                    {isLogin? "Create New Account" : "Log In"}
+                                </button>
+                            </p>
+                        </div>
+
+                        {error && (
+                            <div
+                                className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                                <span>{error}</span>
                             </div>
-                        </>
-                    )}
+                        )}
 
-                    <div className="rounded-md shadow-sm -space-y-px">
-                        <div>
-                            <input
-                                id="email"
-                                name="email"
-                                type={isLogin ? "text" : "email"}
-                                autoComplete="email"
-                                required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder={isLogin ? "Username" : "Email"}
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
-                                required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Password"
-                                value={formData.password}
-                                onChange={handleChange}
-                            />
-                        </div>
+                        <form className="space-y-4" onSubmit={handleSubmit}>
+                            {!isLogin && (
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            name="firstName"
+                                            placeholder="First name"
+                                            value={formData.firstName}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-md bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
+                                        />
+                                        <UserIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>
+                                    </div>
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            name="lastName"
+                                            placeholder="Last name"
+                                            value={formData.lastName}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-md bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
+                                        />
+                                        <UserIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="relative">
+                                <input
+                                    type={isLogin ? "text" : "email"}
+                                    name="email"
+                                    placeholder={isLogin ? "Username" : "Email"}
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-md bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
+                                />
+                                <EnvelopeIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>
+                            </div>
+
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    placeholder="Password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full pl-10 pr-3 py-3 border-2 border-blue-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
+                                />
+                                {/*<LockClosedIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>*/}
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                                >
+                                    {showPassword ? (
+                                        <EyeIcon className="w-5 h-5"/>
+                                    ) : (
+                                        <EyeSlashIcon className="w-5 h-5"/>
+                                    )}
+                                </button>
+                            </div>
+
+                            <div className="flex justify-between gap-4">
+                                <button
+                                    type="button"
+                                    className="w-1/2 bg-gray-100 text-gray-600 py-3 rounded-md hover:bg-gray-200 transition"
+                                >
+                                    Change method
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="w-1/2 bg-blue-500 text-white font-medium py-3 rounded-md hover:bg-blue-600 transition"
+                                >
+                                    {isLogin ? "Log In" : "Create account"}
+                                </button>
+                            </div>
+                        </form>
                     </div>
+                </main>
+            </div>
 
-                    <div>
-                        <button
-                            type="submit"
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            {isLogin ? 'Log In' : 'Create account'}
-                        </button>
-                    </div>
-                </form>
-
-                <div className="text-center">
-                    <button
-                        onClick={() => setIsLogin(!isLogin)}
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                        {isLogin ? 'Create new account' : 'Already A Member? Log In'}
-                    </button>
+            {/* Right Image Section */}
+            <div className="hidden lg:block w-1/2 relative">
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                        backgroundImage: "url('')",
+                        borderTopLeftRadius: "80% 100px",
+                        borderBottomLeftRadius: "80% 100px",
+                    }}
+                />
+                <div className="absolute bottom-6 right-6">
+                    <img src=" " alt="Logo" className="w-10"/>
                 </div>
             </div>
         </div>
+
     )
 }
