@@ -1,6 +1,14 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {
+    UserIcon,
+    EnvelopeIcon,
+    EyeIcon,
+    EyeSlashIcon,
+} from '@heroicons/react/24/outline';
+
+
 
 export function Login(){
     const [isLogin, setIsLogin] = useState(true);
@@ -11,6 +19,7 @@ export function Login(){
         password: ''
     });
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +114,7 @@ export function Login(){
                                             required
                                             className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-md bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
                                         />
-                                        {/*<UserIcon className="w-5 h-5 absolute left-3 top-3 text-gray-400"/>*/}
+                                        <UserIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>
                                     </div>
                                     <div className="relative">
                                         <input
@@ -117,7 +126,7 @@ export function Login(){
                                             required
                                             className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-md bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
                                         />
-                                        {/*<UserIcon className="w-5 h-5 absolute left-3 top-3 text-gray-400"/>*/}
+                                        <UserIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>
                                     </div>
                                 </div>
                             )}
@@ -132,12 +141,12 @@ export function Login(){
                                     required
                                     className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-md bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
                                 />
-                                {/*<MailIcon className="w-5 h-5 absolute left-3 top-3 text-gray-400"/>*/}
+                                <EnvelopeIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>
                             </div>
 
                             <div className="relative">
                                 <input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     name="password"
                                     placeholder="Password"
                                     value={formData.password}
@@ -145,7 +154,18 @@ export function Login(){
                                     required
                                     className="w-full pl-10 pr-3 py-3 border-2 border-blue-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
                                 />
-                                {/*<LockClosedIcon className="w-5 h-5 absolute left-3 top-3 text-gray-400"/>*/}
+                                {/*<LockClosedIcon className="w-4 h-4 absolute right-3 top-3 text-gray-500"/>*/}
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                                >
+                                    {showPassword ? (
+                                        <EyeIcon className="w-5 h-5"/>
+                                    ) : (
+                                        <EyeSlashIcon className="w-5 h-5"/>
+                                    )}
+                                </button>
                             </div>
 
                             <div className="flex justify-between gap-4">
